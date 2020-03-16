@@ -1,0 +1,33 @@
+{
+  "name": "live-polls",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node server.js",
+    "build": "next build",
+    "prod:server": "cross-env NODE_ENV=production node server.js",
+    "start": "npm-run-all -s build prod:server"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "chart.js": "^2.9.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "next": "9.3.0",
+    "pusher": "^3.0.0",
+    "pusher-js": "^5.1.1",
+    "react": "16.13.0",
+    "react-chartjs-2": "^2.9.0",
+    "react-dom": "16.13.0"
+  },
+  "devDependencies": {
+    "@types/node": "^13.9.1",
+    "@types/react": "^16.9.23",
+    "@types/react-dom": "^16.9.5",
+    "cross-env": "^7.0.2",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^3.8.3"
+  }
+}
