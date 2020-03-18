@@ -6,6 +6,7 @@ import Pusher from 'pusher-js';
 import Layout from '../components/Layout';
 import Poll from '../components/Poll';
 import Stats from '../components/Stats';
+import '../styles/tailwind-theme.css';
 
 export interface IIndexPageProps {}
 
@@ -71,19 +72,10 @@ class IndexPage extends Component<IIndexPageProps, IIndexPageState> {
 
     return (
       <Layout pageTitle='Live Polls App'>
-        <main>
-          <div>
-            <section>
-              <div>
-                <Poll question={question} choices={choices} />
-              </div>
-            </section>
-
-            <section>
-              <Stats choices={choices} stats={this.state.answers} />
-            </section>
-          </div>
-        </main>
+        <div className='flex flex-wrap lg:w-screen lg:h-screen'>
+          <Poll question={question} choices={choices} />
+          <Stats choices={choices} stats={this.state.answers} />
+        </div>
       </Layout>
     );
   }

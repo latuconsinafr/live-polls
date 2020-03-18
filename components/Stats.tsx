@@ -9,10 +9,10 @@ interface IStatsProps {
 }
 
 const Stats: FunctionComponent<IStatsProps> = props => {
-  const { choices = [], stats = {} } = props;
+  const { choices, stats } = props;
   const counts = choices.map(choice => stats[choice] || 0);
   const totalCount = counts.reduce((total, count) => total + count, 0);
-
+  
   const chartData = {
     labels: choices,
     datasets: [
@@ -32,7 +32,7 @@ const Stats: FunctionComponent<IStatsProps> = props => {
   };
 
   const chartOptions = {
-    layout: { padding: { top: 25, bottom: 75, left: 75, right: 75 } },
+    layout: { padding: { top: 0, bottom: 25, left: 125, right: 125 } },
     maintainAspectRatio: false,
     scales: {
       yAxes: [
@@ -54,34 +54,45 @@ const Stats: FunctionComponent<IStatsProps> = props => {
 
   return (
     <Fragment>
-      <div>
-        <Line data={chartData} width={100} height={50} options={chartOptions} />
-      </div>
-
-      <div>
-        <div>
-          <span>Total Count</span>
-          <span>{totalCount}</span>
+      <div className='w-full h-full lg:w-1/2 grid grid-rows-2 grid-cols-1'>
+        <div className='items-center row-span-1 col-span-1 border-l-2 border-b-2 border-gray-300 p-2'>
+          <Line
+            data={chartData}
+            width={50}
+            height={50}
+            options={chartOptions}
+          />
         </div>
 
-        <div>
-          {counts.map((count, index) => {
-            return (
-              <div key={index}>
-                <span>{count}</span>
-              </div>
-            );
-          })}
-        </div>
+        <div className='col-span-1 row-span-1 grid grid-rows-3 grid-cols-1 border-l-2 border-gray-300'>
+          <div className='flex flex-wrap row-span-2 content-center items-center text-center justify-center border-b-2 border-gray-300'>
+            <span className='block w-full uppercase font-bold text-gray-700'>
+              Total Count
+            </span>
+            <span className='block w-full text-6xl text-gray-800'>
+              {totalCount}
+            </span>
+          </div>
 
-        <div>
-          {choices.map((choice, index) => {
-            return (
-              <div key={index}>
-                <span>{choice}</span>
-              </div>
-            );
-          })}
+          <div className='row-span-1 flex flex-wrap'>
+            {Object.keys(stats).map((key, index) => {
+              return (
+                <div key={index} className='w-1/5 grid grid-rows-3 grid-cols-1 text-center'>
+                  <div className='flex row-span-2 items-center justify-center border border-gray-300'>
+                    <span className='font-bold text-2xl text-gray-800'>
+                      {stats[key]}
+                    </span>
+                  </div>
+
+                  <div className='flex row-span-1 items-center justify-center border border-gray-300 bg-gray-200'>
+                    <span className='font-bold uppercase text-xs text-gray-700'>
+                      {key}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </Fragment>

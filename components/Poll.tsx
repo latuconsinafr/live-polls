@@ -38,45 +38,63 @@ export default class Poll extends Component<IPollProps, IPollState> {
 
     return (
       <Fragment>
-        <span>Poll for the Day</span>
+        <div className='w-full h-full lg:w-1/2 flex items-center justify-center border-r-2 border-gray-300 bg-gray-200'>
+          <div className='p-10'>
+            <h3 className='uppercase tracking-tight'>Poll for the Day</h3>
 
-        <span>{question}</span>
+            <p className='font-semibold mt-2 text-lg'>{question}</p>
 
-        <div>
-          {choices.map((choice, index) => {
-            const selected = selectedChoice != '' && selectedChoice === choice;
+            <div className='p-5'>
+              {choices.map((choice, index) => {
+                const selected =
+                  selectedChoice != '' && selectedChoice === choice;
 
-            return (
-              <div
-                key={index}
-              >
-                <input
-                  type='radio'
-                  name='poll-response'
-                  id={`poll-response--radio-${index + 1}`}
-                  value={choice}
-                  checked={selected}
-                  readOnly
-                />
+                const labelClass = [
+                  'bg-transparent text-gray-500 text-lg font-medium cursor-pointer pl-5 position-relative',
+                  selected ? 'checked' : ''
+                ].join(' ');
 
-                <label
-                  htmlFor={`poll-response--radio-${index + 1}`}
-                  onClick={this.handleClick(choice)}
-                >
-                  {choice}
-                </label>
-              </div>
-            );
-          })}
+                return (
+                  <div
+                    key={index}
+                    className='custom-control custom-radio py-3 ml-2 d-flex align-items-center'
+                  >
+                    <input
+                      className='form-radio bg-gray-400 h-5 w-5'
+                      type='radio'
+                      name='poll-response'
+                      id={`poll-response--radio-${index + 1}`}
+                      value={choice}
+                      checked={selected}
+                      readOnly
+                    />
+
+                    <label
+                      className={labelClass}
+                      htmlFor={`poll-response--radio-${index + 1}`}
+                      onClick={this.handleClick(choice)}
+                    >
+                      {choice}
+                    </label>
+                  </div>
+                );
+              })}
+            </div>
+
+            <button
+              type='button'
+              className={`bg-blue-500 hover:bg-blue-400 hover:border-blue-500 text-white font-bold py-2 px-4 border-b-4 border-blue-700 rounded ${
+                selectedChoice
+                  ? 'opacity-100 cursor-allowed'
+                  : 'opacity-50 cursor-not-allowed'
+              }`}
+              disabled={!selectedChoice}
+              onClick={this.handleSubmit}
+            >
+              Submit
+            </button>
+          </div>
         </div>
-
-        <button
-          type='button'
-          disabled={!selectedChoice}
-          onClick={this.handleSubmit}
-        >
-          Submit
-        </button>
       </Fragment>
     );
   }
