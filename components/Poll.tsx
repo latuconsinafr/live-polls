@@ -38,33 +38,19 @@ export default class Poll extends Component<IPollProps, IPollState> {
 
     return (
       <Fragment>
-        <span
-          className='position-relative d-block w-100 h5 text-uppercase text-primary font-weight-bold mb-4'
-          style={{ marginTop: -50 }}
-        >
-          Poll for the Day
-        </span>
+        <span>Poll for the Day</span>
 
-        <span className='position-relative d-block w-100 h1 text-dark'>
-          {question}
-        </span>
+        <span>{question}</span>
 
-        <div className='position-relative my-5 pt-0 pb-5'>
+        <div>
           {choices.map((choice, index) => {
             const selected = selectedChoice != '' && selectedChoice === choice;
-
-            const labelClass = [
-              'custom-control-label pl-5 position-relative',
-              selected ? 'checked' : ''
-            ].join(' ');
 
             return (
               <div
                 key={index}
-                className='custom-control custom-radio py-3 ml-2 d-flex align-items-center'
               >
                 <input
-                  className='custom-control-input'
                   type='radio'
                   name='poll-response'
                   id={`poll-response--radio-${index + 1}`}
@@ -74,7 +60,6 @@ export default class Poll extends Component<IPollProps, IPollState> {
                 />
 
                 <label
-                  className={labelClass}
                   htmlFor={`poll-response--radio-${index + 1}`}
                   onClick={this.handleClick(choice)}
                 >
@@ -87,9 +72,6 @@ export default class Poll extends Component<IPollProps, IPollState> {
 
         <button
           type='button'
-          className={`btn btn-primary text-uppercase my-5 ml-4 px-5 py-3 d-block ${
-            selectedChoice ? '' : 'in'
-          }visible`}
           disabled={!selectedChoice}
           onClick={this.handleSubmit}
         >

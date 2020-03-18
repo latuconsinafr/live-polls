@@ -54,70 +54,31 @@ const Stats: FunctionComponent<IStatsProps> = props => {
 
   return (
     <Fragment>
-      <div className='position-relative h-50 w-100 d-flex align-items-center border-bottom border-gray'>
+      <div>
         <Line data={chartData} width={100} height={50} options={chartOptions} />
       </div>
 
-      <div className='position-relative h-50 w-100 d-flex flex-wrap align-items-start align-content-start'>
-        <div
-          className='d-flex flex-wrap w-100 text-center justify-content-center align-items-center align-content-center'
-          style={{ height: 'calc(100% - 150px)' }}
-        >
-          <span
-            className='d-block w-100 text-uppercase pb-2 font-weight-bold text-secondary'
-            style={{ fontSize: '1.25rem' }}
-          >
-            Total Count
-          </span>
-          <span
-            className='d-block w-100 text-dark'
-            style={{ fontSize: '5rem' }}
-          >
-            {totalCount}
-          </span>
+      <div>
+        <div>
+          <span>Total Count</span>
+          <span>{totalCount}</span>
         </div>
 
-        <div
-          className='w-100 d-flex justify-content-between align-items-center text-center border-top border-gray'
-          style={{ height: 100 }}
-        >
+        <div>
           {counts.map((count, index) => {
-            const className = [
-              'h-100 position-relative d-flex align-items-center',
-              index > 0 ? 'border-left border-gray' : ''
-            ].join(' ');
-
             return (
-              <div
-                key={index}
-                className={className}
-                style={{ width: '20%', fontSize: '2rem' }}
-              >
-                <span className='d-block w-100 p-3 text-dark'>{count}</span>
+              <div key={index}>
+                <span>{count}</span>
               </div>
             );
           })}
         </div>
 
-        <div
-          className='w-100 d-flex justify-content-between align-items-center text-center border-top border-gray bg-light'
-          style={{ height: 50 }}
-        >
+        <div>
           {choices.map((choice, index) => {
-            const className = [
-              'h-100 position-relative d-flex align-items-center',
-              index > 0 ? 'border-left border-gray' : ''
-            ].join(' ');
-
             return (
-              <div
-                key={index}
-                className={className}
-                style={{ width: '20%', fontSize: '0.7rem' }}
-              >
-                <span className='d-block w-100 text-uppercase p-3 font-weight-bold text-secondary'>
-                  {choice}
-                </span>
+              <div key={index}>
+                <span>{choice}</span>
               </div>
             );
           })}
