@@ -34,7 +34,7 @@ export default class Poll extends Component<IPollProps, IPollState> {
 
   public render() {
     const { selected: selectedChoice } = this.state;
-    const { question = null, choices = [] } = this.props;
+    const { question = '', choices = [] } = this.props;
 
     return (
       <Fragment>

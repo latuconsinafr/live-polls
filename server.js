@@ -36,11 +36,21 @@ app
       return handler(req, res);
     });
 
-    let answers = {};
+    let choices = [
+      'Africa',
+      'Asia',
+      'Europe',
+      'North America',
+      'South America'
+    ];
+    let answers = choices.reduce(
+      (object, key) => ({ ...object, [key]: 0 }),
+      {}
+    );
 
     server.post('/answer', (req, res, next) => {
       const { choice = null } = req.body;
-
+      
       if (choice) {
         const hasChoice =
           choice in answers && typeof answers[choice] === 'number';

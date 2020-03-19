@@ -8,7 +8,10 @@ import Poll from '../components/Poll';
 import Stats from '../components/Stats';
 import '../styles/tailwind-theme.css';
 
-export interface IIndexPageProps {}
+export interface IIndexPageProps {
+  question: string;
+  choices: Array<string>;
+}
 
 export interface IIndexPageState {
   answers: { [choice: string]: number };
@@ -21,7 +24,10 @@ class IndexPage extends Component<IIndexPageProps, IIndexPageState> {
     super(props);
 
     this.state = {
-      answers: {}
+      answers: props.choices.reduce(
+        (object, key) => ({ ...object, [key]: 0 }),
+        {}
+      )
     };
   }
 
@@ -60,15 +66,7 @@ class IndexPage extends Component<IIndexPageProps, IIndexPageState> {
   }
 
   public render() {
-    const question =
-      'Which is the largest continent in the world by population?';
-    const choices = [
-      'Africa',
-      'Asia',
-      'Europe',
-      'North America',
-      'South America'
-    ];
+    const { question = '', choices = [] } = this.props;
 
     return (
       <Layout pageTitle='Live Polls App'>
@@ -83,6 +81,9 @@ class IndexPage extends Component<IIndexPageProps, IIndexPageState> {
 
 export default () => (
   <Fragment>
-    <IndexPage />
+    <IndexPage
+      question={'Which is the largest continent in the world by population?'}
+      choices={['Africa', 'Asia', 'Europe', 'North America', 'South America']}
+    />
   </Fragment>
 );

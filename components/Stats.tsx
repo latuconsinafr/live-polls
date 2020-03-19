@@ -9,7 +9,7 @@ interface IStatsProps {
 }
 
 const Stats: FunctionComponent<IStatsProps> = props => {
-  const { choices, stats } = props;
+  const { choices = [], stats = {} } = props;
   const counts = choices.map(choice => stats[choice] || 0);
   const totalCount = counts.reduce((total, count) => total + count, 0);
   
@@ -77,7 +77,10 @@ const Stats: FunctionComponent<IStatsProps> = props => {
           <div className='row-span-1 flex flex-wrap'>
             {Object.keys(stats).map((key, index) => {
               return (
-                <div key={index} className='w-1/5 grid grid-rows-3 grid-cols-1 text-center'>
+                <div
+                  key={index}
+                  className='w-1/5 grid grid-rows-3 grid-cols-1 text-center'
+                >
                   <div className='flex row-span-2 items-center justify-center border border-gray-300'>
                     <span className='font-bold text-2xl text-gray-800'>
                       {stats[key]}
