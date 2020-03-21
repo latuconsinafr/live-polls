@@ -15,6 +15,7 @@ export interface IIndexPageProps {
 
 export interface IIndexPageState {
   answers: { [choice: string]: number };
+  darkMode: boolean;
 }
 
 class IndexPage extends Component<IIndexPageProps, IIndexPageState> {
@@ -27,11 +28,21 @@ class IndexPage extends Component<IIndexPageProps, IIndexPageState> {
       answers: props.choices.reduce(
         (object, key) => ({ ...object, [key]: 0 }),
         {}
-      )
+      ),
+      darkMode: false
     };
   }
 
+  setColorScheme = () => {
+    window.matchMedia &&
+    window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? this.setState({ darkMode: true })
+      : this.setState({ darkMode: false });
+  };
+
   componentDidMount() {
+    this.setColorScheme();
+
     this.pusher = new Pusher(
       process.env.PUSHER_APP_KEY
         ? process.env.PUSHER_APP_KEY
@@ -59,6 +70,14 @@ class IndexPage extends Component<IIndexPageProps, IIndexPageState> {
         this.setState({ answers });
       });
     });
+
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addListener(this.setColorScheme.bind(this));
+
+    window
+      .matchMedia('(prefers-color-scheme: light)')
+      .addListener(this.setColorScheme.bind(this));
   }
 
   componentWillUnmount() {
@@ -70,9 +89,17 @@ class IndexPage extends Component<IIndexPageProps, IIndexPageState> {
 
     return (
       <Layout pageTitle='Live Polls App'>
-        <div className='flex flex-wrap lg:w-screen lg:h-screen'>
-          <Poll question={question} choices={choices} />
-          <Stats choices={choices} stats={this.state.answers} />
+        <div className='flex flex-wrap h-screen lg:w-screen lg:h-screen'>
+          <Poll
+            question={question}
+            choices={choices}
+            darkMode={this.state.darkMode}
+          />
+          <Stats
+            choices={choices}
+            stats={this.state.answers}
+            darkMode={this.state.darkMode}
+          />
         </div>
       </Layout>
     );

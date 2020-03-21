@@ -6,6 +6,7 @@ import axios from 'axios';
 export interface IPollProps {
   question: string;
   choices: Array<string>;
+  darkMode: boolean;
 }
 
 export interface IPollState {
@@ -34,15 +35,24 @@ export default class Poll extends Component<IPollProps, IPollState> {
 
   public render() {
     const { selected: selectedChoice } = this.state;
-    const { question = '', choices = [] } = this.props;
+    const { question = '', choices = [], darkMode = false } = this.props;
 
     return (
       <Fragment>
-        <div className='w-full h-full lg:w-1/2 flex items-center justify-center border-r-2 border-gray-300 bg-gray-200'>
+        <div className='w-full h-full lg:w-1/2 flex flex-col items-center justify-center border-r-2 border-gray-300 bg-gray-200 dark-mode:bg-gray-800 dark-mode:border-gray-700'>
+          <div className='p-5'>
+            {darkMode ? (
+              <button type='button' className='text-blue-300'>☾</button>
+            ) : (
+              <button type='button'>☀</button>
+            )}
+          </div>
           <div className='p-10'>
             <h3 className='uppercase tracking-tight'>Poll for the Day</h3>
 
-            <p className='font-semibold mt-2 text-lg'>{question}</p>
+            <p className='font-semibold mt-2 text-lg dark-mode:text-white'>
+              {question}
+            </p>
 
             <div className='p-5'>
               {choices.map((choice, index) => {
